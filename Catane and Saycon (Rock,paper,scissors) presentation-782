@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+public class RockPaperScissors {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Player 1 name: ");
+        String player1 = scanner.nextLine();
+
+        System.out.print("Enter Player 2 name: ");
+        String player2 = scanner.nextLine();
+
+        int player1Score = 0;
+        int player2Score = 0;
+
+        for (int round = 1; round <= 5; round++) {
+            System.out.println("\n--- Round " + round + " ---");
+
+            String choice1 = getValidChoice(scanner, player1);
+            String choice2 = getValidChoice(scanner, player2);
+
+            if (choice1.equalsIgnoreCase(choice2)) {
+                System.out.println("It's a tie!");
+            } else if ((choice1.equalsIgnoreCase("rock") && choice2.equalsIgnoreCase("scissors")) ||
+                       (choice1.equalsIgnoreCase("paper") && choice2.equalsIgnoreCase("rock")) ||
+                       (choice1.equalsIgnoreCase("scissors") && choice2.equalsIgnoreCase("paper"))) {
+                System.out.println(player1 + " wins this round!");
+                player1Score++;
+            } else {
+                System.out.println(player2 + " wins this round!");
+                player2Score++;
+            }
+
+            System.out.println("Current Score - " + player1 + ": " + player1Score + " | " + player2 + ": " + player2Score);
+        }
+
+        System.out.println("\n=== Final Results ===");
+        System.out.println(player1 + ": " + player1Score);
+        System.out.println(player2 + ": " + player2Score);
+
+        if (player1Score > player2Score) {
+            System.out.println("Winner: " + player1 + "!");
+        } else if (player2Score > player1Score) {
+            System.out.println("Winner: " + player2 + "!");
+        } else {
+            System.out.println("The game ends in an overall tie!");
+        }
+
+        scanner.close();
+    }
+
+    private static String getValidChoice(Scanner scanner, String playerName) {
+        String choice = "";
+        while (true) {
+            System.out.print(playerName + ", enter choice (rock, paper, or scissors): ");
+            choice = scanner.nextLine().trim();
+            if (choice.equalsIgnoreCase("rock") || 
+                choice.equalsIgnoreCase("paper") || 
+                choice.equalsIgnoreCase("scissors")) {
+                break;
+            }
+            System.out.println("Invalid input. Please enter rock, paper, or scissors.");
+        }
+        return choice;
+    }
+}
